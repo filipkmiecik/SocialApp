@@ -1,11 +1,12 @@
 import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Loading from "./components/Loading/Loading";
-import Login from "./components/Login/Login";
-import "./App.css";
+import UserProvider from "./providers/UserProvider";
+import routes from "./router/routes";
 
-import * as firebase from "firebase";
+import firebase from "firebase";
 
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyCSxJ4bMEFhJxYHcWGFNiqBD4DP3YXYK4E",
   authDomain: "socialapp-780c5.firebaseapp.com",
   databaseURL: "https://socialapp-780c5.firebaseio.com",
@@ -19,9 +20,20 @@ firebase.initializeApp(firebaseConfig);
 
 function App() {
   return (
-    <div className="App">
-      <Login />
-    </div>
+    <UserProvider>
+      <BrowserRouter>
+        <Loading />
+        <Switch>
+          {routes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              component={route.component}
+            />
+          ))}
+        </Switch>
+      </BrowserRouter>
+    </UserProvider>
   );
 }
 

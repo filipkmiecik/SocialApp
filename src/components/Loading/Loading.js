@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Redirect } from "react-router";
 import styles from "./Loading.module.css";
-import * as firebase from "firebase";
+import Home from "../Home/Home";
+import Login from "../Login/Login";
+import firebase from "firebase";
 
-const Loading = (props) => <div className={styles.Loader}>Loading...</div>;
+const Loading = (props) => {
+  const user = null;
+  return user ? <Home /> : <Redirect to="/login" />;
+};
 
 export default Loading;
